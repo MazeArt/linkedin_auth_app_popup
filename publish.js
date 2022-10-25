@@ -2,15 +2,15 @@
 
 // This sample will post a basic message in your LinkedIn profile
 
-const https = require('https');
+
 
 // alternativa de guardar el token en el server, ver app.js en el ejemplo https://github.com/gfiocco/linkedin-node-api/blob/master/app.js
 //const accessToken = require('./token.json').access_token;
 
 function get_token(){
 
-    var accessTokenObj = JSON.parse(localStorage.getItem("access_token"));
-    console.log("this is the access token:" + accessTokenObj);
+    var accessToken = JSON.parse(localStorage.getItem("access_token"));
+    console.log("this is the access token:" + accessToken);
 }
 
 
@@ -19,8 +19,8 @@ function get_token(){
 // Example
 // ---------------------------------------------------------------------------------------------------------------------
 
-let title = "Hello World!";
-let text = "This is my first post!";
+let title = "Hola Mundo!";
+let text = "Probando la Api de Linkedin!";
 let shareUrl = "https://www.microsoft.com/es-cl/"
 let shareThumbnailUrl = "https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-760x400.png"
 
@@ -49,6 +49,8 @@ function getLinkedinId(accessToken) {
         _request(method, hostname, path, headers, body).then(r => {
             res(JSON.parse(r.body).id)
         }).catch(e => rej(e))
+        
+        console.log("OwnerID: " + ownerId)
     })
 }
 

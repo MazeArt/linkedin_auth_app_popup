@@ -4,7 +4,10 @@ const path = require("path");
 const express = require("express");
 const  server = express(); 
 const axios = require("axios");
-const utilities = require('./sharedModule');
+const https = require('https');
+
+const getlin = require("./server.js")
+
 
 // server.register(require("fastify-static"), {
 //   root: path.join(__dirname, "public"),
@@ -54,6 +57,15 @@ server.get("/popup", (request, reply) => {
 
 server.get("/", (request, reply) => {
   return reply.sendFile("index.html");
+});
+
+server.get("/postlin", (request, reply) => {
+  //const token = request.token
+  const { token } = request.query;
+  getlin.myfunc1;
+  getlin.myfunc2(token);
+
+  reply.send ("This is the tokenss: " + token) 
 });
 
 server.listen(3000, () => console.info("Server on http://localhost:3000"));
