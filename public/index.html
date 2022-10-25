@@ -5,19 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
-    <style>
-      #spinner-div {
-      position: fixed;
-      display: none;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.8);
-      z-index: 2;
-    }
-    </style>
+   
 
   </head>
   <body>
@@ -35,7 +23,7 @@
           <h3 class="text-center text-primary">Ajax spinner whilst loading</h3>
           <div class="row">
             <div class="col-6">
-              <button type="button" class="btn btn-success my-2" id="do-call">Load the message</button>
+              <button type="button" class="btn btn-success my-2" id="do-call">Get Token</button>
             </div>
             <div class="col-6 mt-2">
               <p id="message_string">The message is:</p>
@@ -47,7 +35,7 @@
   </div>
 </div>
     
-   
+    <script type="text/javascript" src="ptest.js" defer></script>
     <script>
       const CLIENT_ID = "78m81c58vzpvwe";
       const URI =  "http://localhost:3000/oauth/linkedin/login/callback"

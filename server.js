@@ -1,12 +1,20 @@
 require("dotenv").config();
 const path = require("path");
-const server = require("fastify")();
+//const server = require("fastify")();
+const express = require("express");
+const  server = express(); 
 const axios = require("axios");
+const utilities = require('./sharedModule');
 
-server.register(require("fastify-static"), {
-  root: path.join(__dirname, "public"),
-  prefix: "/public/",
-});
+// server.register(require("fastify-static"), {
+//   root: path.join(__dirname, "public"),
+//   prefix: "/public/",
+// });
+
+
+//express code
+server.use(express.static('./public'));
+//
 
 server.get("/oauth/linkedin/login/callback", async (request, reply) => {
   const { code } = request.query;
