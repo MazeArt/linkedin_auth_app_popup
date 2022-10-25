@@ -13,10 +13,14 @@
       const access_token = new URL(window.location).searchParams.get(
         "access_token"
       );
-
+      console.log("PASANDO EL TOKEN ");
       window.opener.postMessage(access_token);
+      console.log("access token popup pass: " + access_token);
 
-      window.close();
+      //guardando el token
+      localStorage.setItem("access_token", access_token);
+
+      //window.close();
     </script>
   </body>
 </html>
