@@ -18,17 +18,21 @@ function get_token(){
 // ---------------------------------------------------------------------------------------------------------------------
 // Example
 // ---------------------------------------------------------------------------------------------------------------------
-
 let title = "Hola Mundo!";
 let text = "Probando la Api de Linkedin!";
 let shareUrl = "https://www.microsoft.com/es-cl/"
 let shareThumbnailUrl = "https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-760x400.png"
 
-getLinkedinId(accessToken).then(ownerId => {
-    postShare(accessToken, ownerId, title, text, shareUrl, shareThumbnailUrl).then(r => {
-        console.log(r); // status 201 signal successful posting
+function share_post(accessToken,title, text, shareUrl, shareThumbnailUrl){
+    getLinkedinId(accessToken).then(ownerId => {
+        postShare(accessToken, ownerId, title, text, shareUrl, shareThumbnailUrl).then(r => {
+            console.log(r); // status 201 signal successful posting
+        }).catch(e => console.log(e));
     }).catch(e => console.log(e));
-}).catch(e => console.log(e));
+
+    console.log("Share Post Function called");
+}
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Generic Node.js API to post on LinkedIn
@@ -50,7 +54,7 @@ function getLinkedinId(accessToken) {
             res(JSON.parse(r.body).id)
         }).catch(e => rej(e))
         
-        console.log("OwnerID: " + ownerId)
+       // console.log("OwnerID: " + ownerId)
     })
 }
 
@@ -125,3 +129,5 @@ function _request(method, hostname, path, headers, body) {
         req.end();
     })
 }
+
+module.exports = { share_post, getLinkedinId, postShare };

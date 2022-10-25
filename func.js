@@ -1,10 +1,12 @@
 function myfunc1(){
-    console.log("my functiontest ");
+    console.log("this is funk 1 ");
+
 
 }
 
 function myfunc2(token){
-    console.log("my functiontest 2 token : " + token);
+    console.log("this is funk 2 and token: " + token);
+    myfunc1();
 
 }
 /// EXPORTING MODULES
@@ -12,4 +14,4 @@ function myfunc2(token){
 //exports.getLinkedinId(accessToken);
 //exports.myfunc();
 
-module.exports = { myfunc1 , myfunc2 };
+module.exports = { myfunc2 };

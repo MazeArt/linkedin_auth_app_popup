@@ -6,7 +6,9 @@ const  server = express();
 const axios = require("axios");
 const https = require('https');
 
-const getlin = require("./server.js")
+const getlin = require("./publish.js")
+const testfunk = require("./func.js")
+
 
 
 // server.register(require("fastify-static"), {
@@ -59,13 +61,28 @@ server.get("/", (request, reply) => {
   return reply.sendFile("index.html");
 });
 
-server.get("/postlin", (request, reply) => {
-  //const token = request.token
+server.get("/post-to-linkedin", (request, reply) => {
+  
   const { token } = request.query;
-  getlin.myfunc1;
-  getlin.myfunc2(token);
 
-  reply.send ("This is the tokenss: " + token) 
+  let title = "Hola Mundo!";
+  let text = "Probando la Api de Linkedin!";
+  let shareUrl = "https://www.microsoft.com/es-cl/"
+  let shareThumbnailUrl = "https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-760x400.png"
+
+  getlin.share_post(token,title, text, shareUrl, shareThumbnailUrl);
+  //getlin.myfunc2(token);
+
+  reply.send ("published??: ") 
+});
+
+server.get("/testfunk", (request, reply) => {
+  const { token } = request.query;
+  
+  testfunk.myfunc2(token);
+ 
+
+  reply.send ("testing funk ended ") 
 });
 
 server.listen(3000, () => console.info("Server on http://localhost:3000"));
