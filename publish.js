@@ -2,7 +2,7 @@
 
 // This sample will post a basic message in your LinkedIn profile
 
-
+const https = require('https');
 
 // alternativa de guardar el token en el server, ver app.js en el ejemplo https://github.com/gfiocco/linkedin-node-api/blob/master/app.js
 //const accessToken = require('./token.json').access_token;
@@ -50,9 +50,11 @@ function getLinkedinId(accessToken) {
             'X-Restli-Protocol-Version': '2.0.0'
         };
         let body = ''
-        _request(method, hostname, path, headers, body).then(r => {
+        _request(method, hostname, path, headers, body)
+        .then(r => {
             res(JSON.parse(r.body).id)
-        }).catch(e => rej(e))
+        })
+        .catch(e => rej(e))
         
        // console.log("OwnerID: " + ownerId)
     })

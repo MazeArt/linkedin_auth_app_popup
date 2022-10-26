@@ -1,15 +1,19 @@
+
 require("dotenv").config();
 const path = require("path");
-//const server = require("fastify")();
+
 const express = require("express");
-const  server = express(); 
+const server = express(); 
 const axios = require("axios");
-const https = require('https');
+
+const s3 = require("./s3.js");
 
 const getlin = require("./publish.js")
 const testfunk = require("./func.js")
 
-
+const options = {
+  root: path.resolve(__dirname, 'public')
+};
 
 // server.register(require("fastify-static"), {
 //   root: path.join(__dirname, "public"),
@@ -19,6 +23,7 @@ const testfunk = require("./func.js")
 
 //express code
 server.use(express.static('./public'));
+
 //
 
 server.get("/oauth/linkedin/login/callback", async (request, reply) => {
@@ -54,12 +59,19 @@ server.get("/new", (request, reply) => {
 });
 
 server.get("/popup", (request, reply) => {
-  return reply.sendFile("popup.html");
+  return reply.sendFile("popup.html", options);
 });
 
 server.get("/", (request, reply) => {
   return reply.sendFile("index.html");
 });
+
+server.get("/s3Url", async (req,res) => {
+  const url = await s3.generateUploadURL()
+  console.log("server side s3.url:" + url)
+  res.send({url})
+
+} )
 
 server.get("/post-to-linkedin", (request, reply) => {
   
@@ -68,7 +80,7 @@ server.get("/post-to-linkedin", (request, reply) => {
   let title = "Hola Mundo!";
   let text = "Probando la Api de Linkedin!";
   let shareUrl = "https://www.microsoft.com/es-cl/"
-  let shareThumbnailUrl = "https://cdn.searchenginejournal.com/wp-content/uploads/2022/06/image-search-1600-x-840-px-62c6dc4ff1eee-sej-760x400.png"
+  let shareThumbnailUrl = "https://avatars-s3-upload-bucket.s3.amazonaws.com/71d114d48ef268fa4caae4dbd1d9f70b"
 
   getlin.share_post(token,title, text, shareUrl, shareThumbnailUrl);
   //getlin.myfunc2(token);
@@ -76,12 +88,11 @@ server.get("/post-to-linkedin", (request, reply) => {
   reply.send ("published??: ") 
 });
 
+
+  
 server.get("/testfunk", (request, reply) => {
   const { token } = request.query;
-  
   testfunk.myfunc2(token);
- 
-
   reply.send ("testing funk ended ") 
 });
 
